@@ -5,15 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thulir Multispeciality Clinic</title>
 
-  <meta name="theme-color" content="#FF6129" />
+  <meta name="theme-color" content="#0F2A1D" />
 
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-<!-- HEADER -->
+<!-- ================= HEADER ================= -->
 <header class="header">
   <div class="container">
     <img src="logo.jpeg" class="logo-img" alt="Thulir Clinic Logo">
@@ -29,7 +32,7 @@
   </div>
 </header>
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
 <section id="home" class="hero">
   <div class="hero-content">
     <h1>Thulir Multispeciality Clinic</h1>
@@ -38,46 +41,99 @@
   </div>
 </section>
 
-<!-- DOCTORS -->
-<section id="services" class="services">
+<!-- ================= DOCTORS ================= -->
+<section id="services" class="doctors-section">
   <div class="container">
     <h2>Our Doctors</h2>
 
-    <div class="doctors-grid">
-
-      <div class="doctor-card">
-        <img src="Orthopaedic.png">
+    <!-- Doctor 1 -->
+    <div class="doctor-row">
+      <img src="Orthopaedic.png" alt="Orthopaedic Doctor">
+      <div class="doctor-info">
         <h3>Dr. R. M. Karthikeyan</h3>
         <p>MBBS, MS (Ortho)</p>
-        <button class="btn-book" onclick="openBookingModal('Dr. R. M. Karthikeyan')">Book Slot</button>
-      </div>
 
-      <div class="doctor-card">
-        <img src="Diabetologist.png">
+        <div class="doctor-actions">
+          <a
+            href="https://wa.me/919790224675?text=Hello%20I%20would%20like%20to%20book%20an%20appointment%20with%20Dr.%20R.%20M.%20Karthikeyan"
+            target="_blank"
+            class="btn-whatsapp"
+          >WhatsApp Appointment</a>
+
+          <button class="btn-book" onclick="openBookingModal('Dr. R. M. Karthikeyan')">
+            Book via Website
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doctor 2 -->
+    <div class="doctor-row">
+      <img src="Diabetologist.png" alt="Diabetologist Doctor">
+      <div class="doctor-info">
         <h3>Dr. P. Raja</h3>
         <p>MD (Medicine), DA, C.Diab</p>
-        <button class="btn-book" onclick="openBookingModal('Dr. P. Raja')">Book Slot</button>
-      </div>
 
-      <div class="doctor-card">
-        <img src="Dermatologist.png">
+        <div class="doctor-actions">
+          <a
+            href="https://wa.me/919790224675?text=Hello%20I%20would%20like%20to%20book%20an%20appointment%20with%20Dr.%20P.%20Raja"
+            target="_blank"
+            class="btn-whatsapp"
+          >WhatsApp Appointment</a>
+
+          <button class="btn-book" onclick="openBookingModal('Dr. P. Raja')">
+            Book via Website
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doctor 3 -->
+    <div class="doctor-row">
+      <img src="Dermatologist.png" alt="Dermatologist Doctor">
+      <div class="doctor-info">
         <h3>Dr. S. Athilakshmi</h3>
         <p>MBBS, MD, DVL</p>
-        <button class="btn-book" onclick="openBookingModal('Dr. S. Athilakshmi')">Book Slot</button>
-      </div>
 
-      <div class="doctor-card">
-        <img src="Gynaecologist.png">
+        <div class="doctor-actions">
+          <a
+            href="https://wa.me/919790224675?text=Hello%20I%20would%20like%20to%20book%20an%20appointment%20with%20Dr.%20S.%20Athilakshmi"
+            target="_blank"
+            class="btn-whatsapp"
+          >WhatsApp Appointment</a>
+
+          <button class="btn-book" onclick="openBookingModal('Dr. S. Athilakshmi')">
+            Book via Website
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doctor 4 -->
+    <div class="doctor-row">
+      <img src="Gynaecologist.png" alt="Gynaecologist Doctor">
+      <div class="doctor-info">
         <h3>Dr. R. Ganga</h3>
         <p>MBBS, DGO</p>
-        <button class="btn-book" onclick="openBookingModal('Dr. R. Ganga')">Book Slot</button>
-      </div>
 
+        <div class="doctor-actions">
+          <a
+            href="https://wa.me/919790224675?text=Hello%20I%20would%20like%20to%20book%20an%20appointment%20with%20Dr.%20R.%20Ganga"
+            target="_blank"
+            class="btn-whatsapp"
+          >WhatsApp Appointment</a>
+
+          <button class="btn-book" onclick="openBookingModal('Dr. R. Ganga')">
+            Book via Website
+          </button>
+        </div>
+      </div>
     </div>
+
   </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ================= ABOUT ================= -->
 <section id="about" class="about">
   <div class="container">
     <h2>About Thulir Clinic</h2>
@@ -88,60 +144,51 @@
   </div>
 </section>
 
-<!-- BOOKING MODAL -->
+<!-- ================= BOOKING MODAL ================= -->
 <div id="bookingModal" class="modal">
   <div class="modal-content">
-
     <span class="close" onclick="closeBookingModal()">×</span>
     <h2>Book Appointment</h2>
 
-    <form>
-      <!-- Doctor Dropdown -->
-      <select id="doctorSelect" required>
-        <option value="" disabled selected>Select Doctor</option>
-        <option>Dr. R. M. Karthikeyan</option>
-        <option>Dr. P. Raja</option>
-        <option>Dr. S. Athilakshmi</option>
-        <option>Dr. R. Ganga</option>
-      </select>
+    <form id="bookingForm">
+      <input type="text" id="selectedDoctor" placeholder="Doctor Name" required>
 
-      <!-- Date (past allowed) -->
-      <input type="date" required>
+      <input type="date" id="bookDate" required>
 
-      <input type="text" placeholder="Patient Name" required>
-      <input type="tel" placeholder="Phone Number" required>
+      <input type="text" id="patientName" placeholder="Patient Name" required>
+
+      <input type="tel" id="patientPhone" placeholder="Phone Number" required>
 
       <button type="submit">Confirm Booking</button>
     </form>
   </div>
 </div>
 
-<!-- CONTACT -->
-<section id="contact" class="contact-section">
+<!-- ================= LOCATION + COMMENTS ================= -->
+<section id="contact" class="location-comments">
   <div class="container">
     <h2>Visit Us</h2>
     <p>📍 Rajan Nagar, Kolathur, Chennai</p>
-    <p>📞 +91 97902 24675</p>
+
+    <a
+      href="https://maps.google.com/?q=Thulir+Multispeciality+Clinic+Kolathur"
+      target="_blank"
+      class="map-link"
+    >Open in Google Maps</a>
+
+    <h3>Leave a Comment</h3>
+    <textarea placeholder="Your feedback..." rows="4"></textarea>
+    <button class="btn-book">Submit</button>
   </div>
 </section>
 
+<!-- ================= FOOTER ================= -->
 <footer class="footer">
   <p>© 2026 Thulir Multispeciality Clinic</p>
 </footer>
 
-<!-- SCRIPT -->
-<script>
-  function openBookingModal(doctor = "") {
-    document.getElementById("bookingModal").style.display = "block";
-    if (doctor) {
-      document.getElementById("doctorSelect").value = doctor;
-    }
-  }
-
-  function closeBookingModal() {
-    document.getElementById("bookingModal").style.display = "none";
-  }
-</script>
+<!-- ================= JS ================= -->
+<script src="script.js"></script>
 
 </body>
 </html>
