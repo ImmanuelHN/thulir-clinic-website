@@ -57,8 +57,7 @@ form.addEventListener("submit", async (e) => {
   const doctor = doctorInput.value.trim();
   const date = dateInput.value;
 
-  /* ================= VALIDATION ================= */
-
+  /* ========= VALIDATION ========= */
   if (name.length < 3) {
     alert("⚠️ Patient name must be at least 3 characters");
     return;
@@ -74,8 +73,7 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  /* ================= SUBMISSION ================= */
-
+  /* ========= SUBMIT ========= */
   const params = new URLSearchParams({
     doctor,
     date,
@@ -85,12 +83,26 @@ form.addEventListener("submit", async (e) => {
   });
 
   try {
-    await fetch(`${APPS_SCRIPT_URL}?${params.toString()}`, {
-      method: "GET",
-      mode: "no-cors"   // 🔥 THIS IS THE KEY
-    });
+    const response = await fetch(
+      `${APPS_SCRIPT_URL}?${params.toString()}`,
+      { method: "GET", cache: "no-store" }
+    );
 
-    alert("✅ Appointment submitted successfully!\nToken No: ${data.token}\nWe will contact you shortly.");
+    if (!response.ok) {
+      throw new Error("Network response failed");
+    }
+
+    const data = await response.json();
+
+    if (!data.success) {
+      alert("❌ " + data.message);
+      return;
+    }
+
+    alert(
+      `✅ Appointment Confirmed!\n\nDoctor: ${doctor}\nToken No: ${data.token}`
+    );
+
     closeBookingModal();
 
   } catch (err) {
