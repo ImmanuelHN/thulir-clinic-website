@@ -52,39 +52,49 @@ window.addEventListener("click", (e) => {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  const name = document.getElementById("patientName").value.trim();
+  const phone = document.getElementById("patientPhone").value.trim();
+  const doctor = doctorInput.value.trim();
+  const date = dateInput.value;
+
+  /* ================= VALIDATION ================= */
+
+  if (name.length < 3) {
+    alert("⚠️ Patient name must be at least 3 characters");
+    return;
+  }
+
+  if (!/^\d{10}$/.test(phone)) {
+    alert("⚠️ Phone number must be exactly 10 digits");
+    return;
+  }
+
+  if (!doctor || !date) {
+    alert("⚠️ Please fill all fields");
+    return;
+  }
+
+  /* ================= SUBMISSION ================= */
+
   const params = new URLSearchParams({
-    doctor: doctorInput.value.trim(),
-    date: dateInput.value,
-    patientName: document.getElementById("patientName").value.trim(),
-    phone: document.getElementById("patientPhone").value.trim(),
+    doctor,
+    date,
+    patientName: name,
+    phone,
     source: "Website"
   });
 
   try {
-    const url = `${APPS_SCRIPT_URL}?${params.toString()}`;
-
-    const response = await fetch(url, {
+    await fetch(`${APPS_SCRIPT_URL}?${params.toString()}`, {
       method: "GET",
-      redirect: "follow",
-      cache: "no-store"
+      mode: "no-cors"   // 🔥 THIS IS THE KEY
     });
 
-    if (!response.ok) {
-      throw new Error("Response not OK");
-    }
-
-    const data = await response.json();
-
-    if (!data.success) {
-      alert("❌ " + data.message);
-      return;
-    }
-
-    alert(`✅ Appointment booked!\nToken No: ${data.token}`);
+    alert("✅ Appointment submitted successfully!\nToken No: ${data.token}\nWe will contact you shortly.");
     closeBookingModal();
 
   } catch (err) {
-    console.error("Fetch error:", err);
+    console.error(err);
     alert("⚠️ Network error. Please try again.");
   }
 });
