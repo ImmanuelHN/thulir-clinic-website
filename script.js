@@ -57,7 +57,6 @@ form.addEventListener("submit", async (e) => {
   const doctor = doctorInput.value.trim();
   const date = dateInput.value;
 
-  /* ========= VALIDATION ========= */
   if (name.length < 3) {
     alert("⚠️ Patient name must be at least 3 characters");
     return;
@@ -68,12 +67,6 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  if (!doctor || !date) {
-    alert("⚠️ Please fill all fields");
-    return;
-  }
-
-  /* ========= SUBMIT ========= */
   const params = new URLSearchParams({
     doctor,
     date,
@@ -88,10 +81,6 @@ form.addEventListener("submit", async (e) => {
       { method: "GET", cache: "no-store" }
     );
 
-    if (!response.ok) {
-      throw new Error("Network response failed");
-    }
-
     const data = await response.json();
 
     if (!data.success) {
@@ -99,8 +88,13 @@ form.addEventListener("submit", async (e) => {
       return;
     }
 
+    // ✅ THIS WILL ALWAYS SHOW THE TOKEN
+    const token = data.token;
+
     alert(
-      `✅ Appointment Confirmed!\n\nDoctor: ${doctor}\nToken No: ${data.token}`
+      "✅ Appointment submitted successfully!\n\n" +
+      "Token No: " + token + "\n\n" +
+      "We will contact you shortly."
     );
 
     closeBookingModal();
