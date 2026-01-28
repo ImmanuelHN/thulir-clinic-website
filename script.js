@@ -2,8 +2,7 @@
 
 // 🔴 PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
 const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyi7d4gzHo2UiOzJAKiw9IVm6iq6XTXDk-47irROre5U-kU6GckEpbmi7sHJDCONVUL/exec";
-
+  "https://script.google.com/macros/s/AKfycbz013FEob3kSlLmcnRSJUbbSWoWmu0apDIpN7pwvusosi4DUXQ3JvvW_gGA8jpc0V2s/exec";
 /* ================= ELEMENTS ================= */
 
 const modal = document.getElementById("bookingModal");
@@ -53,42 +52,39 @@ window.addEventListener("click", (e) => {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const payload = {
+  const params = new URLSearchParams({
     doctor: doctorInput.value.trim(),
     date: dateInput.value,
     patientName: document.getElementById("patientName").value.trim(),
     phone: document.getElementById("patientPhone").value.trim(),
     source: "Website"
-  };
-
-  // Basic validation
-  if (!payload.doctor || !payload.date || !payload.patientName || !payload.phone) {
-    alert("⚠️ Please fill all fields");
-    return;
-  }
+  });
 
   try {
-    const response = await fetch(APPS_SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+    const url = `${APPS_SCRIPT_URL}?${params.toString()}`;
+
+    const response = await fetch(url, {
+      method: "GET",
+      redirect: "follow",
+      cache: "no-store"
     });
 
-    const result = await response.json();
+    if (!response.ok) {
+      throw new Error("Response not OK");
+    }
 
-    if (result.status === "closed") {
-      alert(`❌ Booking closed for ${payload.doctor}`);
+    const data = await response.json();
+
+    if (!data.success) {
+      alert("❌ " + data.message);
       return;
     }
 
-    alert(
-      `✅ Appointment Confirmed!\n\nDoctor: ${payload.doctor}\nDate: ${payload.date}\nToken No: ${result.token}`
-    );
-
+    alert(`✅ Appointment booked!\nToken No: ${data.token}`);
     closeBookingModal();
 
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error("Fetch error:", err);
     alert("⚠️ Network error. Please try again.");
   }
 });
