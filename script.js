@@ -108,9 +108,14 @@ form.addEventListener("submit", async (e) => {
 /* ================= into video ================= */
 document.addEventListener("DOMContentLoaded", () => {
   const video = document.getElementById("heroVideo");
+  const header = document.querySelector("header");
 
-  if (!video) return;
+  if (!video || !header) return;
+  header.classList.remove("header-visible");
 
+  video.addEventListener("ended", () => {
+    header.classList.add("header-visible");
+  });
   // Always start from beginning on refresh
   video.currentTime = 0;
 
