@@ -104,3 +104,59 @@ form.addEventListener("submit", async (e) => {
     alert("⚠️ Network error. Please try again.");
   }
 });
+
+/* ================= into video ================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const video = document.getElementById("heroVideo");
+
+  if (!video) return;
+
+  // Always start from beginning on refresh
+  video.currentTime = 0;
+
+  // Play once when page loads
+  const playPromise = video.play();
+
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {
+      // Autoplay blocked — user interaction fallback
+      document.body.addEventListener(
+        "click",
+        () => video.play(),
+        { once: true }
+      );
+    });
+  }
+
+  // When video ends → freeze last frame
+  video.addEventListener("ended", () => {
+    video.pause();
+    // DO NOT hide the video
+    // DO NOT reset currentTime
+  });
+});
+
+
+/* ================= Comments ================= */
+document.getElementById("commentForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const params = new URLSearchParams({
+    action: "comment",
+    name: document.getElementById("commentName").value.trim(),
+    email: document.getElementById("commentEmail").value.trim(),
+    message: document.getElementById("commentMessage").value.trim()
+  });
+
+  try {
+    await fetch(`${APPS_SCRIPT_URL}?${params.toString()}`, {
+      mode: "no-cors"
+    });
+
+    alert("✅ Thank you for your feedback!");
+    e.target.reset();
+
+  } catch {
+    alert("⚠️ Unable to submit comment");
+  }
+});

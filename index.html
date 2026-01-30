@@ -34,7 +34,16 @@
 
 <!-- ================= HERO ================= -->
 <section id="home" class="hero">
-  <div class="hero-content">
+  <video
+    id="heroVideo"
+    class="hero-video"
+    muted
+    playsinline
+    preload="auto"
+  >
+    <source src="intro.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-overlay">
     <h1>Thulir Multispeciality Clinic</h1>
     <p>Your trusted healthcare partner in Kolathur, Chennai</p>
     <button class="btn-hero" onclick="openBookingModal()">Book Appointment</button>
@@ -176,10 +185,13 @@
       class="map-link"
     >Open in Google Maps</a>
 
-    <h3>Leave a Comment</h3>
-    <textarea placeholder="Your feedback..." rows="4"></textarea>
-    <button class="btn-book">Submit</button>
-  </div>
+  <form id="commentForm" class="comment-form">
+    <input type="text" id="commentName" placeholder="Your Name" required>
+    <input type="email" id="commentEmail" placeholder="Your Email" required>
+    <textarea id="commentMessage" placeholder="Your feedback..." rows="4" required></textarea>
+
+    <button type="submit" class="btn-book">Submit</button>
+  </form>
 </section>
 
 <!-- ================= FOOTER ================= -->
