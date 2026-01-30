@@ -362,3 +362,28 @@ textarea {
     margin-right: 6px;
   }  
 }
+
+.facilities-section {
+  margin-top: 60px; /* pushes it lower than About */
+  text-align: center;
+}
+
+.facilities-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 25px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.facilities-list li {
+  background: rgba(255, 255, 255, 0.35);
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-weight: 500;
+  color: #0f2a1d;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
