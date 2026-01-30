@@ -108,23 +108,21 @@ form.addEventListener("submit", async (e) => {
 /* ================= into video ================= */
 document.addEventListener("DOMContentLoaded", () => {
   const video = document.getElementById("heroVideo");
+  const heroOverlay = document.querySelector(".hero-overlay");
   const header = document.querySelector("header");
 
-  if (!video || !header) return;
-  header.classList.remove("header-visible");
+  if (!video) return;
 
-  video.addEventListener("ended", () => {
-    header.classList.add("header-visible");
-  });
-  // Always start from beginning on refresh
+  // Ensure initial states
+  if (heroOverlay) heroOverlay.classList.remove("show");
+  if (header) header.classList.remove("header-visible");
+
+  // Always play video from start
   video.currentTime = 0;
 
-  // Play once when page loads
   const playPromise = video.play();
-
   if (playPromise !== undefined) {
     playPromise.catch(() => {
-      // Autoplay blocked — user interaction fallback
       document.body.addEventListener(
         "click",
         () => video.play(),
@@ -133,11 +131,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // When video ends → freeze last frame
+  // When video ends
   video.addEventListener("ended", () => {
     video.pause();
-    // DO NOT hide the video
-    // DO NOT reset currentTime
+
+    // Show hero text & button
+    if (heroOverlay) heroOverlay.classList.add("show");
+
+    // Show header
+    if (header) header.classList.add("header-visible");
   });
 });
 

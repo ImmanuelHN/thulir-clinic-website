@@ -144,6 +144,17 @@ header.header-visible {
   z-index: 2;
 }
 
+.hero-overlay {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.hero-overlay.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ================= DOCTORS ================= */
 .doctors-section {
   padding: 100px 0;
@@ -337,4 +348,17 @@ textarea {
   .hero h1 {
     font-size: 2.2rem;
   }
+ 
+  header {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  header .logo {
+    margin-left: 6px;
+  }
+
+  header .contact-number {
+    margin-right: 6px;
+  }  
 }
